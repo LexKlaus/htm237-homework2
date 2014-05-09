@@ -1,80 +1,80 @@
 (function(){
 
-// ´¡¤J <ul> ¤§ <li> ¼ËªO
+// ï¿½ï¿½ï¿½J <ul> ï¿½ï¿½ <li> ï¿½ËªO
 var tmpl = '<li><input type="text"><span></span></li>',
     addButton = $('#add'),
-    connected = $('.connected'),      // ¤T­Ó <ul>
-    placeholder = $('#placeholder'),  // ¤T­Ó <ul> ªº®e¾¹
+    connected = $('.connected'),      // ï¿½Tï¿½ï¿½ <ul>
+    placeholder = $('#placeholder'),  // ï¿½Tï¿½ï¿½ <ul> ï¿½ï¿½ï¿½eï¿½ï¿½
     mainUl = $('.main'),              // main <ul>
     deleteUl = $('.delete'),          // delete <ul>
     doneUl = $('.done');              // done <ul>
 
-// ÂIÀ»«ö¶s®É¡A´¡¤J·s¶µ¥Ø
+// ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½sï¿½É¡Aï¿½ï¿½ï¿½Jï¿½sï¿½ï¿½ï¿½ï¿½
 //
 addButton.on('click', function(){
   $(tmpl).prependTo(mainUl).addClass('is-editing').find('input').focus();
 });
 
-// «ö Enter Áä®É§¹¦¨½s¿è¨Ã¦sÀÉ
+// ï¿½ï¿½ Enter ï¿½ï¿½ï¿½É§ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ã¦sï¿½ï¿½
 //
 mainUl.on('keyup', 'input', function(e){
-  // ­Y¥Ø«eªºÁä¬O¡uenter¡v
+  // ï¿½Yï¿½Ø«eï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½uenterï¿½v
   if(e.which === 13){
     var input = $(this), li = input.parents('li');
 
-    // §â <input> ªº­È½Æ»s¨ì <span> ¸Ì
+    // ï¿½ï¿½ <input> ï¿½ï¿½ï¿½È½Æ»sï¿½ï¿½ <span> ï¿½ï¿½
     li.find('span').text( input.val() );
 
-    // ¨ú®ø <li> ªº½s¿è¼Ò¦¡¡]is-editing class¡^
+    // ï¿½ï¿½ï¿½ï¿½ <li> ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ò¦ï¿½ï¿½]is-editing classï¿½^
     li.removeClass('is-editing');
 
-    // §â¾ã­Óªí¦s¶i localStorage
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½sï¿½i localStorage
     save();
   }
 });
 
-// ±q localStorage Åª¥X¾ã­Óªí¡A©ñ¶i ul
+// ï¿½q localStorage Åªï¿½Xï¿½ï¿½ï¿½Óªï¿½ï¿½Aï¿½ï¿½ï¿½i ul
 load();
 
-// §â¾ã­Ó¶µ¥Øªí¦s¶i localStorage
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½Øªï¿½ï¿½sï¿½i localStorage
 //
 function save(){
-  // ·Ç³Æ¦n­n¸Ë¦U­Ó¶µ¥ØªºªÅ°}¦C
+  // ï¿½Ç³Æ¦nï¿½nï¿½Ë¦Uï¿½Ó¶ï¿½ï¿½Øªï¿½ï¿½Å°}ï¿½C
   var arr = [];
 
-  // ¹ï©ó¨C­Ó li¡A
-  // §â <span> ¸Ìªº¶µ¥Ø¡]¤@­Óª«¥ó¡G{text:¤å¦r, isDone:¬O§_³Q§¹¦¨}¡^©ñ¶i°}¦C¸Ì
+  // ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ liï¿½A
+  // ï¿½ï¿½ <span> ï¿½Ìªï¿½ï¿½ï¿½ï¿½Ø¡]ï¿½@ï¿½Óªï¿½ï¿½ï¿½ï¿½G{text:ï¿½ï¿½ï¿½r, isDone:ï¿½Oï¿½_ï¿½Qï¿½ï¿½ï¿½ï¿½}ï¿½^ï¿½ï¿½ï¿½iï¿½}ï¿½Cï¿½ï¿½
   mainUl.find('li').each(function(){
     arr.push($(this).find('span').text());
   });
 
-  // §â°}¦CÂà¦¨ JSON ¦r¦ê«á¦s¶i localStorage
+  // ï¿½ï¿½ï¿½}ï¿½Cï¿½à¦¨ JSON ï¿½rï¿½ï¿½ï¿½ï¿½ï¿½sï¿½i localStorage
   localStorage.todoItems = JSON.stringify(arr);
 }
 
-// ±q localStorage Åª¥X¾ã­Óªí¡A©ñ¶i <ul>
+// ï¿½q localStorage Åªï¿½Xï¿½ï¿½ï¿½Óªï¿½ï¿½Aï¿½ï¿½ï¿½i <ul>
 //
 function load(){
-  // ±q localStorage ¸ÌÅª¥X°}¦C JSON ¦r¦ê
-  // §â JSON ¦r¦êÂà¦^°}¦C
+  // ï¿½q localStorage ï¿½ï¿½Åªï¿½Xï¿½}ï¿½C JSON ï¿½rï¿½ï¿½
+  // ï¿½ï¿½ JSON ï¿½rï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½}ï¿½C
   var arr = JSON.parse( localStorage.todoItems ), i, li;
 
-  // ¹ï©ó°}¦C¸Ìªº¨C¤@­Ó¶µ¥Ø¡A´¡¤J¦^ mainUl ¸Ì¡C
+  // ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Cï¿½Ìªï¿½ï¿½Cï¿½@ï¿½Ó¶ï¿½ï¿½Ø¡Aï¿½ï¿½ï¿½Jï¿½^ mainUl ï¿½Ì¡C
   for(i=0; i<arr.length; i+=1){
     li = $(tmpl);
     li.appendTo(mainUl).find('span').text(arr[i]);
   }
 }
 
-// ½Ò°ó½m²ß¤@
-// Åý«ö¶s¥i¥H©ì¨Ó©ì¥h
+// ï¿½Ò°ï¿½ï¿½mï¿½ß¤@
+// ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½iï¿½Hï¿½ï¿½ï¿½Ó©ï¿½ï¿½h
 connected.sortable({
   connectWith: '.connected',
   tolerance: 'pointer'
 });
 
-// ½Ò°ó½m²ß¤G
-// ©ì¦²®ÉÅã¥ÜÁôÂÃ¨â­Ó¿ï³æ
+// ï¿½Ò°ï¿½ï¿½mï¿½ß¤G
+// ï¿½ì¦²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¨ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
 mainUl.on('sortstart', function(){
   placeholder.addClass('is-dragging');
 }).on('sortstop', function(){
@@ -82,18 +82,19 @@ mainUl.on('sortstart', function(){
   save();
 });
 
-// ½Ò°ó½m²ß¤T
-// §R°£¶µ¥Ø
+// ï¿½Ò°ï¿½ï¿½mï¿½ß¤T
+// ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 deleteUl.on('sortreceive', function(e, ui){
   ui.item.remove();
   save();
 });
 
-  // You need to complete "¤w§¹¦¨"
-  // §R°£¶µ¥Ø
+  // You need to complete "ï¿½wï¿½ï¿½ï¿½ï¿½"
+  // ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 doneUl.on('sortreceive', function(e, ui){
   ui.item.append().addClass('is-done').appendTo(mainUl);
   save();
+  load();
 });
 
 
