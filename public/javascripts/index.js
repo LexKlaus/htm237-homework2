@@ -60,12 +60,13 @@ function load(){
 
   if(localStorage.todoItems !=undefined){
   var arr = JSON.parse( localStorage.todoItems ), i, li;
-  }
+  
   // �����}�C�̪��C�@�Ӷ��ءA���J�^ mainUl �̡C
   for(i=0; i<arr.length; i+=1){
     li = $(tmpl);
     li.appendTo(mainUl).find('span').text(arr[i]);
   }
+ }
 }
 
 // �Ұ��m�ߤ@
