@@ -57,8 +57,10 @@ function save(){
 function load(){
   // �q localStorage ��Ū�X�}�C JSON �r��
   // �� JSON �r�����^�}�C
-  var arr = JSON.parse( localStorage.todoItems ), i, li;
 
+  if(localStorage.todoItems !=undefined){
+  var arr = JSON.parse( localStorage.todoItems ), i, li;
+  }
   // �����}�C�̪��C�@�Ӷ��ءA���J�^ mainUl �̡C
   for(i=0; i<arr.length; i+=1){
     li = $(tmpl);
@@ -93,7 +95,6 @@ deleteUl.on('sortreceive', function(e, ui){
   // �R������
 doneUl.on('sortreceive', function(e, ui){
   ui.item.append().addClass('is-done').appendTo(mainUl);
-  load(); 
   save();
   
 });
