@@ -39,13 +39,32 @@ load();
 // �����Ӷ��ت��s�i localStorage
 //
 function save(){
-  // �ǳƦn�n�˦U�Ӷ��ت��Ű}�C
+  
+  // 準備好要裝各個項目的空陣列
   var arr = [];
 
-  // �����C�� li�A
-  // �� <span> �̪����ء]�@�Ӫ����G{text:���r, isDone:�O�_�Q����}�^���i�}�C��
+  // 對於每個 li，
+  // 把 <span> 裡的項目（一個物件：{text:文字, isDone:是否被完成}）放進陣列裡
   mainUl.find('li').each(function(){
-    arr.push($(this).find('span').text());
+    // TODO: 修改此處，把「已完成」與否一併存入。
+
+      
+        var doneFlag;
+        if( $(this).attr('class') == "is-done"){
+           doneFlag = "true";
+        }else{
+           doneFlag = "false";
+        }
+
+
+        var item = {
+        done: doneFlag,
+        txt: $(this).find('span').text()
+       };
+
+      arr.push(item);
+      
+    //arr.push($(this).find('span').text());
   });
 
   // ���}�C�ন JSON �r�����s�i localStorage
