@@ -115,7 +115,7 @@ deleteUl.on('sortreceive', function(e, ui){
   // �R������
 doneUl.on('sortreceive', function(e, ui){
   ui.item.append().addClass('is-done').appendTo(mainUl);
-  save();
+  
   
 });
 
