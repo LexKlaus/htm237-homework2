@@ -74,18 +74,23 @@ function save(){
 // �q localStorage Ū�X���Ӫ��A���i <ul>
 //
 function load(){
-  // �q localStorage ��Ū�X�}�C JSON �r��
-  // �� JSON �r�����^�}�C
+  if(!localStorage.todoItems){return;}
 
-  if(localStorage.todoItems !=undefined){
+  // 從 localStorage 裡讀出陣列 JSON 字串
+  // 把 JSON 字串轉回陣列
   var arr = JSON.parse( localStorage.todoItems ), i, li;
-  
-  // �����}�C�̪��C�@�Ӷ��ءA���J�^ mainUl �̡C
+
+  // 對於陣列裡的每一個項目，插入回 mainUl 裡。
   for(i=0; i<arr.length; i+=1){
+
     li = $(tmpl);
-    li.appendTo(mainUl).find('span').text(arr[i]);
+    if(arr[i].done == "true" ){
+      li.appendTo(mainUl).find('span').text(arr[i].txt); 
+      li.addClass('is-done');
+    }else{
+      li.appendTo(mainUl).find('span').text(arr[i].txt); 
+    }
   }
- }
 }
 
 // �Ұ��m�ߤ@
@@ -115,7 +120,7 @@ deleteUl.on('sortreceive', function(e, ui){
   // �R������
 doneUl.on('sortreceive', function(e, ui){
   ui.item.append().addClass('is-done').appendTo(mainUl);
-  
+  save();
   
 });
 
